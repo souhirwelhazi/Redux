@@ -1,12 +1,22 @@
-import { donne_task } from "../Actions/actions";
-import { ADD_TASK, DELETE_TASK, UPDATE_DONE_TASK, UPDATE_TASK } from "../Constants/actionTypes";
+
+import { ADD_TASK, DELETE_TASK, UPDATE_DONE_TASK, UPDATE_TASK ,SET_FILTER} from "../Constants/actionTypes";
+
+
+export const setFilter = filter => ({
+    type: SET_FILTER,
+    filter
+  });
+
+
 const initialState = {
     tasks : [
         {
             description : "test description",
             donne : false,
             id : Math.random(),
-        },],};
+        },],
+        filter: 'all'
+    };
 
 export let TaskReducer = ( state = initialState, action) =>{
 const { type, payload } = action;
@@ -34,6 +44,14 @@ case DELETE_TASK :
 return{
     ...state, 
     tasks: state.tasks.filter((task, index) => task.id !== payload.id),
-    };  default :
+    };
+    
+    case SET_FILTER:
+        return {
+          ...state,
+          filter: payload, 
+        };
+    
+    default :
 return state ;
 }};
